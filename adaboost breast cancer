@@ -1,0 +1,62 @@
+#predicted breast cancer using Adaboost ensemble technique , without hypertuning the model it gives accuracy 100%.  datset used  breast_cancer from sklearn.dataset package
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sbs
+
+from sklearn.datasets import load_breast_cancer
+
+ld=load_breast_cancer()
+
+dir(ld)
+
+df=pd.DataFrame(data=ld.data,columns=ld.feature_names)
+
+df.head()
+
+df["output"]=pd.DataFrame(ld.target)
+
+df.head()
+
+df.output.unique()
+
+ld.target_names
+
+df.columns
+
+df.head()
+
+
+df.isnull().sum()
+
+from sklearn.model_selection  import train_test_split
+
+df.shape
+
+x=df.drop(["output"],axis=1)
+y=df[["output"]]
+
+x_train,x_test,y_train,y_test=train_test_split(x,y,train_size=0.3)
+
+x_train.shape
+
+x_test.shape
+
+y_train.shape
+
+from sklearn.ensemble  import  AdaBoostClassifier
+
+ad=AdaBoostClassifier()
+
+ad.fit(x_train,y_train)
+
+ypred=ad.predict(x_test)
+
+ypred[0:5]
+
+ad.score(x_train,y_train)
+
+y_test.head()
+
+ad.get_params()
+
